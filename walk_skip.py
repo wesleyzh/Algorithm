@@ -1,7 +1,28 @@
 '''
-给你一个数组，里面有正数负数。然后你从坐标0开始走。每次走i+a[i]步，如果超过数组范围，你就停止了。如果在数组之间你可以继续走。然后返回你走不到的坐标数量。
-
-Source: Twitter OA
+A zero-indexed array A consisting of N integers is viven. We visit the indexs of the array in the following way. In the first step we visit the index 0; in every subsequent step we move from the visited index K to the index:
+M = K + A[K];
+provided M is within the array bounds. Otherwise, K is the last index visited. Write a funciton:
+int solution(int A[], int N);. From 1point 3acres bbs
+that, given an array A, returns the number of indexes that cannot be visited by the described procedure.
+For example, for the array:
+A[0] = 1
+A[1] = 2
+A[2] = 3
+only index 2 cannot be visited, so the answer is 1.
+For the array:
+A[0] = 3
+A[1] = -5
+A[2] = 0
+A[3] = -1
+A[4] = -3
+indexes 1 and 4 cannot be visited, so the answer is 2.
+Assume that:
+N is an integer within the range [0...200,000];
+each element of array A is an integer within the range [-1,000,000...1,000,000]
+Complexity:
+expected worst-case time complexity is O(N*log(N));
+expected worst-case space complexity is O(N*log(N)), beyond input storage (not counting the storage required for input arguments).
+Elements of input arrays can be modified.
 '''
 
 class Solution:
@@ -23,7 +44,10 @@ class Solution:
             if position > up or position < lb:
                 break
             
-            visited.append(position)   #record the the position has been visited
+            if position in visited:
+                break
+            else:
+                visited.append(position)   #record the the position has been visited
             
         visit = list(set(visited))  #remove the duplicated position
         
@@ -38,7 +62,7 @@ class Solution:
         #return len(skip)
     
     
-a = [1,3,2,-1,2,3,40]
+a = [3, -5, 0, -1, -3]
 
 solution = Solution()
 print solution.skip(a)
